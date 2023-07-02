@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"spl/utils"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	src := utils.ReadSource()
+	fmt.Println(src)
 }
