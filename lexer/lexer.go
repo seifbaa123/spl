@@ -45,14 +45,23 @@ loop:
 
 		// lex identifiers
 		if isAlpha(lexer.Src[lexer.Index]) {
-			tokens = append(tokens, lexer.lexIdentifier())
-			continue
+			token := lexer.lexIdentifier()
+			for _, t := range keywordsTokens {
+				if t.Symbol == token.Symbol {
+					token.Type = t.Type
+					tokens = append(tokens, token)
+					continue loop
+				}
+			}
+
+			tokens = append(tokens, token)
+			continue loop
 		}
 
 		// lex numbers
 		if isNumber(lexer.Src[lexer.Index]) {
 			tokens = append(tokens, lexer.lexNumber())
-			continue
+			continue loop
 		}
 
 		// invalid token

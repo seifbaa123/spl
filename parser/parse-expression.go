@@ -1,9 +1,15 @@
 package parser
 
 import (
+	"spl/lexer"
 	"spl/node"
 )
 
 func (p *Parser) parseExpression() node.Node {
-	return p.parseAdding()
+	switch p.At().Type {
+	case lexer.PRINT:
+		return p.parsePrint()
+	default:
+		return p.parseAdding()
+	}
 }

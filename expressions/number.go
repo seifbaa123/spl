@@ -12,6 +12,7 @@ type Number struct {
 
 func (n *Number) Evaluate() node.NodeResult {
 	return node.NodeResult{
+		Type:     node.Int,
 		Assembly: fmt.Sprintf("    mov rax, %s", n.Value.Symbol),
 	}
 }

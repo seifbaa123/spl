@@ -1,7 +1,7 @@
 package expressions
 
 import (
-	"spl/instructions"
+	i "spl/instructions"
 	"spl/lexer"
 	"spl/node"
 	"strings"
@@ -19,30 +19,30 @@ func (b *BinaryExpression) Evaluate() node.NodeResult {
 
 	code := []string{
 		right.Assembly,
-		instructions.Push("rax"),
+		i.Push("rax"),
 		left.Assembly,
-		instructions.Pop("rbx"),
+		i.Pop("rbx"),
 	}
 
 	switch b.Op.Type {
 	case lexer.PLUS:
-		code = append(code, instructions.Add("rax", "rbx"))
+		code = append(code, i.Add("rax", "rbx"))
 	case lexer.MINUS:
-		code = append(code, instructions.Sub("rax", "rbx"))
+		code = append(code, i.Sub("rax", "rbx"))
 	case lexer.MULTIPLY:
-		code = append(code, instructions.Mul("rbx"))
+		code = append(code, i.Mul("rbx"))
 	case lexer.DIVIDE:
 		code = append(code, strings.Join([]string{
-			instructions.Xor("rdx", "rdx"),
-			instructions.Div("rbx"),
+			i.Xor("rdx", "rdx"),
+			i.Div("rbx"),
 		}, "\n"))
 	case lexer.MODULO:
 		code = append(code, strings.Join([]string{
-			instructions.Xor("rdx", "rdx"),
-			instructions.Div("rbx"),
-			instructions.Mov("rax", "rbx"),
+			i.Xor("rdx", "rdx"),
+			i.Div("rbx"),
+			i.Mov("rax", "rbx"),
 		}, "\n"))
 	}
 
-	return node.NodeResult{Assembly: strings.Join(code, "\n")}
+	return node.NodeResult{Type: node.Int, Assembly: strings.Join(code, "\n")}
 }

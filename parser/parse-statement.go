@@ -10,6 +10,9 @@ func (p *Parser) parseStatement() node.Node {
 	case lexer.EOF:
 		return nil
 	default:
-		return p.parseExpression()
+		expression := p.parseExpression()
+		p.ExpectNewLine()
+
+		return expression
 	}
 }

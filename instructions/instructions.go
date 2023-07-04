@@ -33,3 +33,7 @@ func Push(val string) string {
 func Pop(val string) string {
 	return fmt.Sprintf("    pop %s", val)
 }
+
+func Call(val string) string {
+	return fmt.Sprintf("    call %s", val)
+}
