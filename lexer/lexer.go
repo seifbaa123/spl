@@ -10,8 +10,8 @@ func NewLexer(src string, file string) *Lexer {
 	return &Lexer{
 		Src:    src,
 		File:   file,
-		Line:   0,
-		Column: 0,
+		Line:   1,
+		Column: 1,
 		Index:  0,
 	}
 }
