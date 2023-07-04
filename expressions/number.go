@@ -1,6 +1,7 @@
 package expressions
 
 import (
+	"fmt"
 	"spl/lexer"
 	"spl/node"
 )
@@ -10,5 +11,7 @@ type Number struct {
 }
 
 func (n *Number) Evaluate() node.NodeResult {
-	panic("TODO: Number.Evaluate")
+	return node.NodeResult{
+		Assembly: fmt.Sprintf("    mov rax, %s", n.Value.Symbol),
+	}
 }

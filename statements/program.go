@@ -2,6 +2,7 @@ package statements
 
 import (
 	"spl/node"
+	"strings"
 )
 
 type Program struct {
@@ -9,5 +10,13 @@ type Program struct {
 }
 
 func (p *Program) Evaluate() node.NodeResult {
-	panic("TODO: Program.Evaluate")
+	var results []string
+
+	for _, node := range p.Body {
+		results = append(results, node.Evaluate().Assembly)
+	}
+
+	return node.NodeResult{
+		Assembly: strings.Join(results, "\n"),
+	}
 }
