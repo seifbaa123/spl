@@ -61,13 +61,7 @@ loop:
 	}
 
 	// add eof token
-	tokens = append(tokens, Token{
-		Type:   EOF,
-		Symbol: "EOF",
-		File:   lexer.File,
-		Line:   lexer.Line,
-		Column: lexer.Column,
-	})
+	tokens = append(tokens, Token{Type: EOF})
 
 	return tokens
 }
