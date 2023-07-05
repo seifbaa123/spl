@@ -17,6 +17,10 @@ func (p *Parser) ParsePrimary() node.Node {
 		return &expressions.Char{Value: p.Eat()}
 	case lexer.IDENTIFIER:
 		return &expressions.Identifier{Value: p.Eat()}
+	case lexer.TRUE:
+		return &expressions.True{Value: p.Eat()}
+	case lexer.FALSE:
+		return &expressions.False{Value: p.Eat()}
 	default:
 		logs.PrintError(p.At(), fmt.Sprintf("Unexpected Token %s", logs.TokenToString(p.At())))
 		os.Exit(1)

@@ -34,8 +34,11 @@ func (p *Print) Evaluate() node.NodeResult {
 }
 
 func getPrintFunctionName(t node.VariableType) string {
-	if t == node.Char {
+	switch t {
+	case node.Char:
 		return "_print_char"
+	case node.Bool:
+		return "_print_bool"
 	}
 
 	return "_print_int"

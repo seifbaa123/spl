@@ -7,6 +7,9 @@ const (
 	NUMBER
 	CHAR
 
+	TRUE
+	FALSE
+
 	PLUS
 	MINUS
 	MULTIPLY

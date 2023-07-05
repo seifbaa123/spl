@@ -16,4 +16,7 @@ var symbolsTokens = []StaticToken{
 
 var keywordsTokens = []StaticToken{
 	{Type: PRINT, Symbol: "print"},
+
+	{Type: TRUE, Symbol: "true"},
+	{Type: FALSE, Symbol: "false"},
 }

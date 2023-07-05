@@ -92,3 +92,41 @@ _print_char:
 
     ret
 `
+
+var printBool = `
+_print_bool:
+    push rax
+    push rdi
+    push rsi
+    push rdx
+
+    mov rax, [rsp+5*8]
+
+    cmp rax, 1
+    je .print_true
+    jmp .print_false
+
+.print_true:
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, true
+    mov rdx, trueLength
+    syscall
+    jmp .end
+
+.print_false:
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, false
+    mov rdx, falseLength
+    syscall
+
+.end:
+
+    pop rdx
+    pop rsi
+    pop rdi
+    pop rax
+
+    ret
+`
