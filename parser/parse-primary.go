@@ -21,6 +21,12 @@ func (p *Parser) ParsePrimary() node.Node {
 		return &expressions.True{Value: p.Eat()}
 	case lexer.FALSE:
 		return &expressions.False{Value: p.Eat()}
+	case lexer.OPEN_PAREN:
+		p.Eat()
+		expression := p.parseExpression()
+		p.Expect(lexer.CLOSE_PAREN, fmt.Sprintf("Expected ) but got %s", p.At().Symbol))
+
+		return expression
 	default:
 		logs.PrintError(p.At(), fmt.Sprintf("Unexpected Token %s", logs.TokenToString(p.At())))
 		os.Exit(1)
