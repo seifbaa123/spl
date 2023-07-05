@@ -1,8 +1,10 @@
 package expressions
 
 import (
+	"os"
 	i "spl/instructions"
 	"spl/lexer"
+	"spl/logs"
 	"spl/node"
 	"strings"
 )
@@ -16,6 +18,11 @@ type BinaryExpression struct {
 func (b *BinaryExpression) Evaluate() node.NodeResult {
 	left := b.Left.Evaluate()
 	right := b.Right.Evaluate()
+
+	if right.Type != node.Int || left.Type != node.Int {
+		logs.PrintError(b.Op, "Binary operation can only implied on numerical types")
+		os.Exit(1)
+	}
 
 	code := []string{
 		right.Assembly,

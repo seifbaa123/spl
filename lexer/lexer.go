@@ -64,13 +64,43 @@ loop:
 			continue loop
 		}
 
+		// lex char
+		if lexer.Src[lexer.Index] == '\'' {
+			lexer.Index++
+			if len(lexer.Src) == int(lexer.Index) || lexer.Src[lexer.Index] == '\'' {
+				lexer.error("Syntax Error: expected char")
+			}
+
+			char := lexer.Src[lexer.Index]
+			lexer.Index++
+
+			if lexer.Src[lexer.Index] != '\'' {
+				lexer.error("Syntax Error: expected closing '")
+			}
+			lexer.Index++
+
+			tokens = append(tokens, Token{
+				Type:   CHAR,
+				Symbol: string(char),
+				File:   lexer.File,
+				Line:   lexer.Line,
+				Column: lexer.Column,
+			})
+
+			continue loop
+		}
+
 		// invalid token
-		fmt.Fprintf(os.Stderr, "Invalid token %c\n", lexer.Src[lexer.Index])
-		os.Exit(1)
+		lexer.error(fmt.Sprintf("Syntax Error: invalid token %c", lexer.Src[lexer.Index]))
 	}
 
 	// add eof token
 	tokens = append(tokens, Token{Type: EOF})
 
 	return tokens
+}
+
+func (lexer *Lexer) error(message string) {
+	fmt.Fprintf(os.Stderr, "%s:%d:%d: %s\n", lexer.File, lexer.Line, lexer.Column, message)
+	os.Exit(1)
 }

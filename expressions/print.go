@@ -27,8 +27,16 @@ func (p *Print) Evaluate() node.NodeResult {
 		Assembly: strings.Join([]string{
 			expression.Assembly,
 			i.Push("rax"),
-			i.Call("_print_int"),
+			i.Call(getPrintFunctionName(expression.Type)),
 			i.Add("rsp", "8"),
 		}, "\n"),
 	}
+}
+
+func getPrintFunctionName(t node.VariableType) string {
+	if t == node.Char {
+		return "_print_char"
+	}
+
+	return "_print_int"
 }

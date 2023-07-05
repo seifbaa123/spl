@@ -1,6 +1,6 @@
 package templates
 
-var print = `
+var printInt = `
 _print_int:
     push rax
     push rdi
@@ -57,6 +57,34 @@ _print_int:
 
     pop rbp
     pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    pop rax
+
+    ret
+`
+
+var printChar = `
+_print_char:
+    push rax
+    push rdi
+    push rsi
+    push rdx
+
+    mov rsi, [rsp+5*8]
+    
+    push 0xa
+    push rsi
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, rsp
+    mov rdx, 16
+    syscall
+
+    add rsp, 16
+
     pop rdx
     pop rsi
     pop rdi
