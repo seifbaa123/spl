@@ -33,7 +33,7 @@ func (p *Parser) Expect(tokenType lexer.TokenType, message string) lexer.Token {
 
 func (p *Parser) ExpectNewLine() {
 	if p.At().Type != lexer.SEMI_COLON && p.At().Type != lexer.END_OF_LINE && p.At().Type != lexer.EOF {
-		logs.PrintError(p.At(), fmt.Sprintf("Expected new line or ; but got %s", logs.TokenToString(p.At())))
+		logs.PrintError(p.At(), fmt.Sprintf("Syntax Error: expected new line or ; but got %s", logs.TokenToString(p.At())))
 		os.Exit(1)
 	}
 

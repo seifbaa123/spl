@@ -20,7 +20,7 @@ func (b *BinaryExpression) Evaluate() node.NodeResult {
 	right := b.Right.Evaluate()
 
 	if right.Type != node.Int || left.Type != node.Int {
-		logs.PrintError(b.Op, "Binary operation can only implied on numerical types")
+		logs.PrintError(b.Op, "Type Error: binary operation can only implied on numerical types")
 		os.Exit(1)
 	}
 

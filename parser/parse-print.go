@@ -13,9 +13,9 @@ func (p *Parser) parsePrint() *expressions.Print {
 		fmt.Sprintf("Expected token print but got %s", logs.TokenToString(p.At())),
 	)
 
-	p.Expect(lexer.OPEN_PAREN, fmt.Sprintf("Expected ( but got %s", logs.TokenToString(p.At())))
+	p.Expect(lexer.OPEN_PAREN, fmt.Sprintf("Syntax Error: expected ( but got %s", logs.TokenToString(p.At())))
 	expression := p.parseExpression()
-	p.Expect(lexer.CLOSE_PAREN, fmt.Sprintf("Expected ) but got %s", logs.TokenToString(p.At())))
+	p.Expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.At())))
 
 	return &expressions.Print{
 		Token:      token,
