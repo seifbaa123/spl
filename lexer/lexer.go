@@ -21,10 +21,19 @@ func (lexer *Lexer) Tokenize() []Token {
 
 loop:
 	for lexer.Index < uint(len(lexer.Src)) {
+		// handle comments
+		if lexer.Src[lexer.Index] == '#' {
+			for len(lexer.Src) > int(lexer.Index) && lexer.Src[lexer.Index] != '\n' {
+				lexer.Index++
+			}
+
+			continue loop
+		}
+
 		// clean white space
 		if isWhiteSpace(lexer.Src[lexer.Index]) {
 			lexer.Index++
-			continue
+			continue loop
 		}
 
 		// lex symbols
