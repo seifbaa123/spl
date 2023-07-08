@@ -1,29 +1,28 @@
-package expressions
+package compiler
 
 import (
 	"os"
 	i "spl/instructions"
 	"spl/lexer"
 	"spl/logs"
-	"spl/node"
 	"strings"
 )
 
 type Print struct {
 	Token      lexer.Token
-	Expression node.Node
+	Expression Node
 }
 
-func (p *Print) Evaluate() node.NodeResult {
-	expression := p.Expression.Evaluate()
+func (p *Print) Evaluate(env *Environment) NodeResult {
+	expression := p.Expression.Evaluate(env)
 
-	if expression.Type == node.Void {
+	if expression.Type == VoidType {
 		logs.PrintError(p.Token, "Type Error: can not print expression of type void")
 		os.Exit(1)
 	}
 
-	return node.NodeResult{
-		Type: node.Void,
+	return NodeResult{
+		Type: VoidType,
 		Assembly: strings.Join([]string{
 			expression.Assembly,
 			i.Push("rax"),
@@ -33,11 +32,11 @@ func (p *Print) Evaluate() node.NodeResult {
 	}
 }
 
-func getPrintFunctionName(t node.VariableType) string {
+func getPrintFunctionName(t VariableType) string {
 	switch t {
-	case node.Char:
+	case CharType:
 		return "_print_char"
-	case node.Bool:
+	case BoolType:
 		return "_print_bool"
 	}
 

@@ -1,7 +1,7 @@
-package node
+package compiler
 
 type Node interface {
-	Evaluate() NodeResult
+	Evaluate(env *Environment) NodeResult
 }
 
 type NodeResult struct {

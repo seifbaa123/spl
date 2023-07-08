@@ -7,6 +7,9 @@ const (
 	NUMBER
 	CHAR
 
+	LET
+	PRINT
+
 	TRUE
 	FALSE
 
@@ -19,9 +22,11 @@ const (
 	OPEN_PAREN
 	CLOSE_PAREN
 
-	PRINT
+	EQUALS
 
+	COLON
 	SEMI_COLON
+
 	END_OF_LINE
 	EOF
 )

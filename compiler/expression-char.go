@@ -1,18 +1,17 @@
-package expressions
+package compiler
 
 import (
 	"fmt"
 	"spl/lexer"
-	"spl/node"
 )
 
 type Char struct {
 	Value lexer.Token
 }
 
-func (c *Char) Evaluate() node.NodeResult {
-	return node.NodeResult{
-		Type:     node.Char,
+func (c *Char) Evaluate(env *Environment) NodeResult {
+	return NodeResult{
+		Type:     CharType,
 		Assembly: fmt.Sprintf("    mov rax, %d", c.Value.Symbol[0]),
 	}
 }

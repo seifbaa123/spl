@@ -1,25 +1,24 @@
-package expressions
+package compiler
 
 import (
 	"os"
 	i "spl/instructions"
 	"spl/lexer"
 	"spl/logs"
-	"spl/node"
 	"strings"
 )
 
 type BinaryExpression struct {
 	Op    lexer.Token
-	Left  node.Node
-	Right node.Node
+	Left  Node
+	Right Node
 }
 
-func (b *BinaryExpression) Evaluate() node.NodeResult {
-	left := b.Left.Evaluate()
-	right := b.Right.Evaluate()
+func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
+	left := b.Left.Evaluate(env)
+	right := b.Right.Evaluate(env)
 
-	if right.Type != node.Int || left.Type != node.Int {
+	if right.Type != IntType || left.Type != IntType {
 		logs.PrintError(b.Op, "Type Error: binary operation can only implied on numerical types")
 		os.Exit(1)
 	}
@@ -51,5 +50,5 @@ func (b *BinaryExpression) Evaluate() node.NodeResult {
 		}, "\n"))
 	}
 
-	return node.NodeResult{Type: node.Int, Assembly: strings.Join(code, "\n")}
+	return NodeResult{Type: IntType, Assembly: strings.Join(code, "\n")}
 }

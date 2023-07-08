@@ -7,7 +7,7 @@ import (
 	"spl/logs"
 )
 
-func (p *Parser) At() lexer.Token {
+func (p *Parser) at() lexer.Token {
 	if p.Index >= uint(len(p.Tokens)) {
 		return lexer.Token{Type: lexer.EOF}
 	}
@@ -15,27 +15,31 @@ func (p *Parser) At() lexer.Token {
 	return p.Tokens[p.Index]
 }
 
-func (p *Parser) Eat() lexer.Token {
-	token := p.At()
+func (p *Parser) eat() lexer.Token {
+	token := p.at()
 	p.Index++
 
 	return token
 }
 
-func (p *Parser) Expect(tokenType lexer.TokenType, message string) lexer.Token {
-	if p.At().Type != tokenType {
-		logs.PrintError(p.At(), message)
+func (p *Parser) expect(tokenType lexer.TokenType, message string) lexer.Token {
+	if p.at().Type != tokenType {
+		logs.PrintError(p.at(), message)
 		os.Exit(1)
 	}
 
-	return p.Eat()
+	return p.eat()
 }
 
-func (p *Parser) ExpectNewLine() {
-	if p.At().Type != lexer.SEMI_COLON && p.At().Type != lexer.END_OF_LINE && p.At().Type != lexer.EOF {
-		logs.PrintError(p.At(), fmt.Sprintf("Syntax Error: expected new line or ; but got %s", logs.TokenToString(p.At())))
+func (p *Parser) expectNewLine() {
+	if !p.isNewLine() {
+		logs.PrintError(p.at(), fmt.Sprintf("Syntax Error: expected new line or ; but got %s", logs.TokenToString(p.at())))
 		os.Exit(1)
 	}
 
-	p.Eat()
+	p.eat()
+}
+
+func (p *Parser) isNewLine() bool {
+	return p.at().Type == lexer.SEMI_COLON || p.at().Type == lexer.END_OF_LINE || p.at().Type != lexer.EOF
 }

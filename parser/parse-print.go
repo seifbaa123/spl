@@ -2,22 +2,22 @@ package parser
 
 import (
 	"fmt"
-	"spl/expressions"
+	"spl/compiler"
 	"spl/lexer"
 	"spl/logs"
 )
 
-func (p *Parser) parsePrint() *expressions.Print {
-	token := p.Expect(
+func (p *Parser) parsePrint() *compiler.Print {
+	token := p.expect(
 		lexer.PRINT,
-		fmt.Sprintf("Expected token print but got %s", logs.TokenToString(p.At())),
+		fmt.Sprintf("expected token print but got %s", logs.TokenToString(p.at())),
 	)
 
-	p.Expect(lexer.OPEN_PAREN, fmt.Sprintf("Syntax Error: expected ( but got %s", logs.TokenToString(p.At())))
+	p.expect(lexer.OPEN_PAREN, fmt.Sprintf("Syntax Error: expected ( but got %s", logs.TokenToString(p.at())))
 	expression := p.parseExpression()
-	p.Expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.At())))
+	p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.at())))
 
-	return &expressions.Print{
+	return &compiler.Print{
 		Token:      token,
 		Expression: expression,
 	}

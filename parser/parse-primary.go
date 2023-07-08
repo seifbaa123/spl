@@ -3,37 +3,36 @@ package parser
 import (
 	"fmt"
 	"os"
-	"spl/expressions"
+	"spl/compiler"
 	"spl/lexer"
 	"spl/logs"
-	"spl/node"
 )
 
-func (p *Parser) ParsePrimary() node.Node {
-	switch p.At().Type {
+func (p *Parser) ParsePrimary() compiler.Node {
+	switch p.at().Type {
 	case lexer.NUMBER:
-		return &expressions.Number{Value: p.Eat()}
+		return &compiler.Number{Value: p.eat()}
 
 	case lexer.CHAR:
-		return &expressions.Char{Value: p.Eat()}
+		return &compiler.Char{Value: p.eat()}
 
 	case lexer.IDENTIFIER:
-		return &expressions.Identifier{Value: p.Eat()}
+		return &compiler.Identifier{Value: p.eat()}
 
 	case lexer.TRUE:
-		return &expressions.True{Value: p.Eat()}
+		return &compiler.True{Value: p.eat()}
 
 	case lexer.FALSE:
-		return &expressions.False{Value: p.Eat()}
+		return &compiler.False{Value: p.eat()}
 
 	case lexer.OPEN_PAREN:
-		p.Eat()
+		p.eat()
 		expression := p.parseExpression()
-		p.Expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", p.At().Symbol))
+		p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", p.at().Symbol))
 		return expression
 
 	default:
-		logs.PrintError(p.At(), fmt.Sprintf("Syntax Error: unexpected Token %s", logs.TokenToString(p.At())))
+		logs.PrintError(p.at(), fmt.Sprintf("Syntax Error: unexpected Token %s", logs.TokenToString(p.at())))
 		os.Exit(1)
 	}
 

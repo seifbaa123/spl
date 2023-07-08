@@ -1,12 +1,12 @@
 package parser
 
 import (
+	"spl/compiler"
 	"spl/lexer"
-	"spl/node"
 )
 
-func (p *Parser) parseExpression() node.Node {
-	switch p.At().Type {
+func (p *Parser) parseExpression() compiler.Node {
+	switch p.at().Type {
 	case lexer.PRINT:
 		return p.parsePrint()
 	default:

@@ -1,17 +1,16 @@
 package parser
 
 import (
-	"spl/expressions"
+	"spl/compiler"
 	"spl/lexer"
-	"spl/node"
 )
 
-func (p *Parser) parseAdding() node.Node {
+func (p *Parser) parseAdding() compiler.Node {
 	left := p.parseMultiplication()
 
-	for p.At().Type == lexer.PLUS || p.At().Type == lexer.MINUS {
-		left = &expressions.BinaryExpression{
-			Op:    p.Eat(),
+	for p.at().Type == lexer.PLUS || p.at().Type == lexer.MINUS {
+		left = &compiler.BinaryExpression{
+			Op:    p.eat(),
 			Left:  left,
 			Right: p.parseMultiplication(),
 		}
@@ -20,12 +19,12 @@ func (p *Parser) parseAdding() node.Node {
 	return left
 }
 
-func (p *Parser) parseMultiplication() node.Node {
+func (p *Parser) parseMultiplication() compiler.Node {
 	left := p.ParsePrimary()
 
-	for p.At().Type == lexer.MULTIPLY || p.At().Type == lexer.DIVIDE || p.At().Type == lexer.MODULO {
-		left = &expressions.BinaryExpression{
-			Op:    p.Eat(),
+	for p.at().Type == lexer.MULTIPLY || p.at().Type == lexer.DIVIDE || p.at().Type == lexer.MODULO {
+		left = &compiler.BinaryExpression{
+			Op:    p.eat(),
 			Left:  left,
 			Right: p.ParsePrimary(),
 		}

@@ -1,14 +1,13 @@
-package expressions
+package compiler
 
 import (
 	"spl/lexer"
-	"spl/node"
 )
 
 type Identifier struct {
 	Value lexer.Token
 }
 
-func (i *Identifier) Evaluate() node.NodeResult {
+func (i *Identifier) Evaluate(env *Environment) NodeResult {
 	panic("TODO: Identifier.Evaluate")
 }

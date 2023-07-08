@@ -2,14 +2,14 @@ package compiler
 
 import (
 	"fmt"
-	"spl/statements"
 	"spl/templates"
 	"spl/utils"
 	"strings"
 )
 
-func Compile(program *statements.Program) {
-	code := strings.Replace(templates.Main, "%CODE%", program.Evaluate().Assembly, 1)
+func Compile(program *Program) {
+	env := NewEnvironment()
+	code := strings.Replace(templates.Main, "%CODE%", program.Evaluate(env).Assembly, 1)
 
 	r := utils.RandomString(20)
 	assemblyFile := fmt.Sprintf("/tmp/code.%s.asm", r)

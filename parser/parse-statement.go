@@ -1,17 +1,19 @@
 package parser
 
 import (
+	"spl/compiler"
 	"spl/lexer"
-	"spl/node"
 )
 
-func (p *Parser) parseStatement() node.Node {
-	switch p.At().Type {
+func (p *Parser) parseStatement() compiler.Node {
+	switch p.at().Type {
+	case lexer.LET:
+		return p.parseVariable()
 	case lexer.EOF:
 		return nil
 	default:
 		expression := p.parseExpression()
-		p.ExpectNewLine()
+		p.expectNewLine()
 
 		return expression
 	}
