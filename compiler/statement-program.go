@@ -1,6 +1,8 @@
 package compiler
 
 import (
+	"fmt"
+	i "spl/instructions"
 	"strings"
 )
 
@@ -16,6 +18,13 @@ func (p *Program) Evaluate(env *Environment) NodeResult {
 	}
 
 	return NodeResult{
-		Type: VoidType, Assembly: strings.Join(results, "\n"),
+		Type: VoidType, Assembly: strings.Join(
+			[]string{
+				i.Sub("rsp", fmt.Sprint(env.address)),
+				strings.Join(results, "\n"),
+				i.Add("rsp", fmt.Sprint(env.address)),
+			},
+			"\n",
+		),
 	}
 }

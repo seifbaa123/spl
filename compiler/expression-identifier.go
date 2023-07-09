@@ -1,6 +1,8 @@
 package compiler
 
 import (
+	"fmt"
+	"spl/instructions"
 	"spl/lexer"
 )
 
@@ -9,5 +11,10 @@ type Identifier struct {
 }
 
 func (i *Identifier) Evaluate(env *Environment) NodeResult {
-	panic("TODO: Identifier.Evaluate")
+	variable := env.getVariable(i.Value)
+
+	return NodeResult{
+		Type:     variable.Type,
+		Assembly: instructions.Mov("rax", fmt.Sprintf("[rbp-%d]", variable.Address)),
+	}
 }

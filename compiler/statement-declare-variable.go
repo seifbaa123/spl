@@ -22,8 +22,8 @@ func (d *DeclareVariable) Evaluate(env *Environment) NodeResult {
 		os.Exit(1)
 	}
 
-	address := env.DeclareVariable(d)
-	assembly := ""
+	var assembly string
+	address := env.declareVariable(d)
 
 	if d.Expression != nil {
 		expression := d.Expression.Evaluate(env)
@@ -39,8 +39,10 @@ func (d *DeclareVariable) Evaluate(env *Environment) NodeResult {
 
 		assembly = strings.Join([]string{
 			expression.Assembly,
-			i.Mov(fmt.Sprintf("[%d]", address), "rax"),
+			i.Mov(fmt.Sprintf("[rbp-%d]", address), "rax"),
 		}, "\n")
+	} else {
+		assembly = i.Mov(fmt.Sprintf("[rbp-%d]", address), "0")
 	}
 
 	return NodeResult{

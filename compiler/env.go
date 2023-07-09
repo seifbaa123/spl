@@ -3,6 +3,7 @@ package compiler
 import (
 	"fmt"
 	"os"
+	"spl/lexer"
 	"spl/logs"
 )
 
@@ -23,10 +24,8 @@ func NewEnvironment() *Environment {
 	}
 }
 
-func (e *Environment) DeclareVariable(variable *DeclareVariable) uint {
-	_, isExist := e.Variables[variable.Name.Symbol]
-
-	if isExist {
+func (e *Environment) declareVariable(variable *DeclareVariable) uint {
+	if e.hasVariable(variable.Name.Symbol) {
 		logs.PrintError(variable.Token, fmt.Sprintf("Variable Error: variable %s is already declared", variable.Name.Symbol))
 		os.Exit(1)
 	}
@@ -40,4 +39,19 @@ func (e *Environment) DeclareVariable(variable *DeclareVariable) uint {
 	}
 
 	return address
+}
+
+func (e *Environment) getVariable(variable lexer.Token) Variable {
+	if !e.hasVariable(variable.Symbol) {
+		logs.PrintError(variable, fmt.Sprintf("Variable Error: variable %s is not declared", variable.Symbol))
+		os.Exit(1)
+	}
+
+	v := e.Variables[variable.Symbol]
+	return v
+}
+
+func (e *Environment) hasVariable(variable string) bool {
+	_, isExist := e.Variables[variable]
+	return isExist
 }

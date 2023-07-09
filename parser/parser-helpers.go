@@ -41,5 +41,5 @@ func (p *Parser) expectNewLine() {
 }
 
 func (p *Parser) isNewLine() bool {
-	return p.at().Type == lexer.SEMI_COLON || p.at().Type == lexer.END_OF_LINE || p.at().Type != lexer.EOF
+	return p.at().Type == lexer.SEMI_COLON || p.at().Type == lexer.END_OF_LINE || p.at().Type == lexer.EOF
 }

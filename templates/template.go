@@ -7,6 +7,8 @@ global _start
 
 section .text
 _start:
+    mov rbp, rsp
+
 %CODE%
 
     mov rax, 60
