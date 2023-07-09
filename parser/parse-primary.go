@@ -28,7 +28,7 @@ func (p *Parser) ParsePrimary() compiler.Node {
 	case lexer.OPEN_PAREN:
 		p.eat()
 		expression := p.parseExpression()
-		p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", p.at().Symbol))
+		p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.at())))
 		return expression
 
 	default:

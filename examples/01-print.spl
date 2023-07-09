@@ -1,4 +1,4 @@
-let x: int = 12
+const x: int = 12
 
 print(x + 10)   # int
 print('a')      # char

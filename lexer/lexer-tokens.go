@@ -22,6 +22,7 @@ var keywordsTokens = []StaticToken{
 	{Type: PRINT, Symbol: "print"},
 
 	{Type: LET, Symbol: "let"},
+	{Type: CONST, Symbol: "const"},
 
 	{Type: TRUE, Symbol: "true"},
 	{Type: FALSE, Symbol: "false"},

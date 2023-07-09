@@ -13,6 +13,7 @@ type DeclareVariable struct {
 	Token      lexer.Token
 	Name       lexer.Token
 	Type       VariableType
+	IsConstant bool
 	Expression Node
 }
 

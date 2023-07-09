@@ -12,6 +12,11 @@ func (p *Parser) parseStatement() compiler.Node {
 		p.expectNewLine()
 		return let
 
+	case lexer.CONST:
+		constant := p.parseConstant()
+		p.expectNewLine()
+		return constant
+
 	case lexer.EOF:
 		return nil
 

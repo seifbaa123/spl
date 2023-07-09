@@ -8,6 +8,7 @@ const (
 	CHAR
 
 	LET
+	CONST
 	PRINT
 
 	TRUE

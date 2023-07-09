@@ -8,8 +8,9 @@ import (
 )
 
 type Variable struct {
-	Address uint
-	Type    VariableType
+	Address    uint
+	IsConstant bool
+	Type       VariableType
 }
 
 type Environment struct {
@@ -34,8 +35,9 @@ func (e *Environment) declareVariable(variable *DeclareVariable) uint {
 	e.address += 8
 
 	e.Variables[variable.Name.Symbol] = Variable{
-		Address: address,
-		Type:    variable.Type,
+		Address:    address,
+		Type:       variable.Type,
+		IsConstant: variable.IsConstant,
 	}
 
 	return address
