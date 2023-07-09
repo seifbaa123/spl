@@ -15,6 +15,14 @@ func (p *Parser) at() lexer.Token {
 	return p.Tokens[p.Index]
 }
 
+func (p *Parser) next() lexer.Token {
+	if p.Index+1 >= uint(len(p.Tokens)) {
+		return lexer.Token{Type: lexer.EOF}
+	}
+
+	return p.Tokens[p.Index+1]
+}
+
 func (p *Parser) eat() lexer.Token {
 	token := p.at()
 	p.Index++

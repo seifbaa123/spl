@@ -32,7 +32,7 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		return expression
 
 	default:
-		logs.PrintError(p.at(), fmt.Sprintf("Syntax Error: unexpected Token %s", logs.TokenToString(p.at())))
+		logs.PrintError(p.at(), fmt.Sprintf("Syntax Error: expected expression but got token %s", logs.TokenToString(p.at())))
 		os.Exit(1)
 	}
 

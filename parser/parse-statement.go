@@ -8,14 +8,25 @@ import (
 func (p *Parser) parseStatement() compiler.Node {
 	switch p.at().Type {
 	case lexer.LET:
-		let := p.parseVariable()
+		st := p.parseVariable()
 		p.expectNewLine()
-		return let
+		return st
 
 	case lexer.CONST:
-		constant := p.parseConstant()
+		st := p.parseConstant()
 		p.expectNewLine()
-		return constant
+		return st
+
+	case lexer.IDENTIFIER:
+		if p.next().Type == lexer.EQUALS {
+			st := p.parseReassignVariable()
+			p.expectNewLine()
+			return st
+		} else {
+			expression := p.parseExpression()
+			p.expectNewLine()
+			return expression
+		}
 
 	case lexer.EOF:
 		return nil
