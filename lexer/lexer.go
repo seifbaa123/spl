@@ -46,8 +46,15 @@ loop:
 					Line:   lexer.Line,
 					Column: lexer.Column,
 				})
+
+				if lexer.Src[lexer.Index] == '\n' {
+					lexer.Line++
+					lexer.Column = 0
+				}
+
 				lexer.Index++
 				lexer.Column++
+
 				continue loop
 			}
 		}

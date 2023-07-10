@@ -55,6 +55,12 @@ func (lexer *Lexer) lexString() Token {
 
 	for lexer.Index < uint(len(lexer.Src)) && lexer.Src[lexer.Index] != '"' {
 		str = append(str, lexer.Src[lexer.Index])
+
+		if lexer.Src[lexer.Index] == '\n' {
+			lexer.Line++
+			lexer.Column = 0
+		}
+
 		lexer.Index++
 		lexer.Column++
 	}
