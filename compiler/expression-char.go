@@ -2,6 +2,7 @@ package compiler
 
 import (
 	"fmt"
+	i "spl/instructions"
 	"spl/lexer"
 )
 
@@ -12,6 +13,6 @@ type Char struct {
 func (c *Char) Evaluate(env *Environment) NodeResult {
 	return NodeResult{
 		Type:     CharType,
-		Assembly: fmt.Sprintf("    mov rax, %d", c.Value.Symbol[0]),
+		Assembly: i.Mov("rax", fmt.Sprint(int(c.Value.Symbol[0]))),
 	}
 }

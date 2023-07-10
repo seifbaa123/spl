@@ -1,6 +1,7 @@
 package compiler
 
 var IntType = VariableType{Type: "int"}
+var StrType = VariableType{Type: "str"}
 var CharType = VariableType{Type: "char"}
 var BoolType = VariableType{Type: "bool"}
 var VoidType = VariableType{Type: "void"}

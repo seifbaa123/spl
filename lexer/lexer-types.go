@@ -4,7 +4,8 @@ type TokenType uint
 
 const (
 	IDENTIFIER TokenType = iota
-	NUMBER
+	INT
+	STR
 	CHAR
 
 	LET

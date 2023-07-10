@@ -9,7 +9,10 @@ import (
 
 func Compile(program *Program) {
 	env := NewEnvironment()
-	code := strings.Replace(templates.Main, "%CODE%", program.Evaluate(env).Assembly, 1)
+	code := templates.Main
+
+	code = strings.Replace(code, "%CODE%", program.Evaluate(env).Assembly, 1)
+	code = strings.Replace(code, "%STRINGS%", getStrings(), 1)
 
 	r := utils.RandomString(20)
 	assemblyFile := fmt.Sprintf("/tmp/code.%s.asm", r)

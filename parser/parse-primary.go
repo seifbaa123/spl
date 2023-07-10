@@ -12,8 +12,11 @@ func (p *Parser) ParsePrimary() compiler.Node {
 	var expression compiler.Node
 
 	switch p.at().Type {
-	case lexer.NUMBER:
-		expression = &compiler.Number{Value: p.eat()}
+	case lexer.INT:
+		expression = &compiler.Int{Value: p.eat()}
+
+	case lexer.STR:
+		expression = &compiler.Str{Value: p.eat()}
 
 	case lexer.CHAR:
 		expression = &compiler.Char{Value: p.eat()}

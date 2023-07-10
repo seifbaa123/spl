@@ -17,10 +17,17 @@ _start:
 
 %FUNCTIONS%
 
+
+section .bss
+    pointer: resb 680_000
+    counter: resb 8
+
+
 section .data
     true: db "true", 0xa
     trueLength equ $-true
     false: db "false", 0xa
     falseLength equ $-false
+%STRINGS%
 
-`, "%FUNCTIONS%", printInt+printChar+printBool, 1)
+`, "%FUNCTIONS%", print+memory, 1)

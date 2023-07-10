@@ -3,6 +3,10 @@ package logs
 import "spl/lexer"
 
 func TokenToString(token lexer.Token) string {
+	if token.Type == lexer.STR {
+		return "\"" + token.Symbol + "\""
+	}
+
 	if token.Type == lexer.END_OF_LINE {
 		return "\\n"
 	}

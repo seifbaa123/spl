@@ -1,5 +1,7 @@
 package templates
 
+var print = printInt + printChar + printBool + printStr
+
 var printInt = `
 _print_int:
     push rax
@@ -123,6 +125,33 @@ _print_bool:
 
 .end:
 
+    pop rdx
+    pop rsi
+    pop rdi
+    pop rax
+
+    ret
+`
+
+var printStr = `
+_print_str:
+    push rax
+    push rdi
+    push rsi
+    push rdx
+    push rbx
+
+    mov rbx, [rsp+6*8]
+    mov rbx, [rbx]
+
+    mov rax, 1
+    mov rdi, 1
+    mov rdx, [rbx]
+    add rbx, 8
+    mov rsi, rbx
+    syscall
+
+    pop rbx
     pop rdx
     pop rsi
     pop rdi

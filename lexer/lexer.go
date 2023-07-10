@@ -73,29 +73,15 @@ loop:
 			continue loop
 		}
 
+		// lex string
+		if lexer.Src[lexer.Index] == '"' {
+			tokens = append(tokens, lexer.lexString())
+			continue loop
+		}
+
 		// lex char
 		if lexer.Src[lexer.Index] == '\'' {
-			lexer.Index++
-			if len(lexer.Src) == int(lexer.Index) || lexer.Src[lexer.Index] == '\'' {
-				lexer.error("Syntax Error: expected char")
-			}
-
-			char := lexer.Src[lexer.Index]
-			lexer.Index++
-
-			if lexer.Src[lexer.Index] != '\'' {
-				lexer.error("Syntax Error: expected closing '")
-			}
-			lexer.Index++
-
-			tokens = append(tokens, Token{
-				Type:   CHAR,
-				Symbol: string(char),
-				File:   lexer.File,
-				Line:   lexer.Line,
-				Column: lexer.Column,
-			})
-
+			tokens = append(tokens, lexer.lexChar())
 			continue loop
 		}
 

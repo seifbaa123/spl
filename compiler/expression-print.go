@@ -34,6 +34,8 @@ func (p *Print) Evaluate(env *Environment) NodeResult {
 
 func getPrintFunctionName(t VariableType) string {
 	switch t {
+	case StrType:
+		return "_print_str"
 	case CharType:
 		return "_print_char"
 	case BoolType:

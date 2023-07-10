@@ -38,8 +38,61 @@ func (lexer *Lexer) lexNumber() Token {
 	}
 
 	return Token{
-		Type:   NUMBER,
+		Type:   INT,
 		Symbol: string(number),
+		File:   lexer.File,
+		Line:   lexer.Line,
+		Column: lexer.Column,
+	}
+}
+
+func (lexer *Lexer) lexString() Token {
+	var str []byte
+
+	// advance opening "
+	lexer.Index++
+	lexer.Column++
+
+	for lexer.Index < uint(len(lexer.Src)) && lexer.Src[lexer.Index] != '"' {
+		str = append(str, lexer.Src[lexer.Index])
+		lexer.Index++
+		lexer.Column++
+	}
+
+	if lexer.Src[lexer.Index] != '"' {
+		lexer.error("Syntax Error: Expected closing \"")
+	}
+
+	// advance closing "
+	lexer.Index++
+	lexer.Column++
+
+	return Token{
+		Type:   STR,
+		Symbol: string(str),
+		File:   lexer.File,
+		Line:   lexer.Line,
+		Column: lexer.Column,
+	}
+}
+
+func (lexer *Lexer) lexChar() Token {
+	lexer.Index++
+	if len(lexer.Src) == int(lexer.Index) || lexer.Src[lexer.Index] == '\'' {
+		lexer.error("Syntax Error: expected char")
+	}
+
+	char := lexer.Src[lexer.Index]
+	lexer.Index++
+
+	if lexer.Src[lexer.Index] != '\'' {
+		lexer.error("Syntax Error: expected closing '")
+	}
+	lexer.Index++
+
+	return Token{
+		Type:   CHAR,
+		Symbol: string(char),
 		File:   lexer.File,
 		Line:   lexer.Line,
 		Column: lexer.Column,
