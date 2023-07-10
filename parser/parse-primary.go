@@ -48,5 +48,16 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		}
 	}
 
+	if p.at().Type == lexer.IS {
+		token := p.eat()
+		t := p.parseType()
+
+		expression = &compiler.IsExpression{
+			Token:      token,
+			Type:       t,
+			Expression: expression,
+		}
+	}
+
 	return expression
 }

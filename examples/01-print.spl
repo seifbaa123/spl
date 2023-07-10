@@ -5,3 +5,6 @@ print(x + 10)           # int
 print('a')              # char
 print(65 as char)       # char
 print(true)             # bool
+
+print(x is int)
+print(x is char)

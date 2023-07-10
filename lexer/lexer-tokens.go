@@ -25,6 +25,7 @@ var keywordsTokens = []StaticToken{
 	{Type: CONST, Symbol: "const"},
 
 	{Type: AS, Symbol: "as"},
+	{Type: IS, Symbol: "is"},
 
 	{Type: TRUE, Symbol: "true"},
 	{Type: FALSE, Symbol: "false"},

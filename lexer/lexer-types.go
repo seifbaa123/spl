@@ -15,6 +15,7 @@ const (
 	FALSE
 
 	AS
+	IS
 
 	PLUS
 	MINUS
