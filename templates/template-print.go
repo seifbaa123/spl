@@ -102,9 +102,9 @@ _print_bool:
 
     mov rax, [rsp+5*8]
 
-    cmp rax, 1
-    je .print_true
-    jmp .print_false
+    cmp rax, 0
+    je .print_false
+    jmp .print_true
 
 .print_true:
     mov rax, 1

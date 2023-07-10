@@ -14,6 +14,8 @@ const (
 	TRUE
 	FALSE
 
+	AS
+
 	PLUS
 	MINUS
 	MULTIPLY

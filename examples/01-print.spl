@@ -1,6 +1,7 @@
 let x: int = 12
 x = 10
 
-print(x + 10)   # int
-print('a')      # char
-print(true)     # bool
+print(x + 10)           # int
+print('a')              # char
+print(65 as char)       # char
+print(true)             # bool
