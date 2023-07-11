@@ -29,6 +29,7 @@ const (
 
 	EQUALS
 
+	DOT
 	COLON
 	SEMI_COLON
 

@@ -12,6 +12,7 @@ var symbolsTokens = []StaticToken{
 
 	{Type: EQUALS, Symbol: "="},
 
+	{Type: DOT, Symbol: "."},
 	{Type: COLON, Symbol: ":"},
 	{Type: SEMI_COLON, Symbol: ";"},
 

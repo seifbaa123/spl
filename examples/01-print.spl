@@ -7,5 +7,7 @@ print(65 as char)                   # char
 print(true)                         # bool
 print("Hello" + ", " + "World!")    # str
 
+print("Hello".length)
+
 print(x is int)
 print(x is char)
