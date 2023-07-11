@@ -1,5 +1,7 @@
 package lexer
 
+import "strings"
+
 func isWhiteSpace(c byte) bool {
 	return c == ' ' || c == '\t'
 }
@@ -75,7 +77,7 @@ func (lexer *Lexer) lexString() Token {
 
 	return Token{
 		Type:   STR,
-		Symbol: string(str),
+		Symbol: strings.ReplaceAll(string(str), "\\n", "\n"),
 		File:   lexer.File,
 		Line:   lexer.Line,
 		Column: lexer.Column,
