@@ -5,6 +5,20 @@ import (
 	"spl/lexer"
 )
 
+func (p *Parser) parseLogical() compiler.Node {
+	left := p.parseAdding()
+
+	for p.at().Type == lexer.OR || p.at().Type == lexer.AND || p.at().Type == lexer.XOR {
+		left = &compiler.BinaryExpression{
+			Op:    p.eat(),
+			Left:  left,
+			Right: p.parseAdding(),
+		}
+	}
+
+	return left
+}
+
 func (p *Parser) parseAdding() compiler.Node {
 	left := p.parseMultiplication()
 

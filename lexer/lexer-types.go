@@ -18,6 +18,10 @@ const (
 	AS
 	IS
 
+	OR
+	AND
+	XOR
+
 	PLUS
 	MINUS
 	MULTIPLY

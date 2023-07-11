@@ -29,6 +29,7 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 	}
 
 	switch b.Op.Type {
+	// arithmetic operations
 	case lexer.PLUS:
 		if left.Type == StrType {
 			code = append(code, concatStrings(left, right))
@@ -54,6 +55,16 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 			i.Div("rbx"),
 			i.Mov("rax", "rbx"),
 		}, "\n"))
+
+	// logical operations
+	case lexer.OR:
+		code = append(code, i.Or("rax", "rbx"))
+
+	case lexer.AND:
+		code = append(code, i.And("rax", "rbx"))
+
+	case lexer.XOR:
+		code = append(code, i.Xor("rax", "rbx"))
 	}
 
 	return NodeResult{Type: left.Type, Assembly: strings.Join(code, "\n")}
@@ -66,6 +77,12 @@ func checkBinaryExpressionTypes(left NodeResult, right NodeResult, op lexer.Toke
 
 	if right.Type == StrType && left.Type == StrType && op.Type == lexer.PLUS {
 		return
+	}
+
+	if op.Type == lexer.OR || op.Type == lexer.AND || op.Type == lexer.XOR {
+		if right.Type == BoolType && left.Type == BoolType {
+			return
+		}
 	}
 
 	logs.PrintError(

@@ -9,5 +9,7 @@ print("Hello" + ", " + "World!\n")      # str
 
 print("Hello".length)
 
+print(true or false)
+
 print(x is int)
 print(x is char)

@@ -22,6 +22,14 @@ func Div(val string) string {
 	return fmt.Sprintf("    div %s", val)
 }
 
+func Or(val1 string, val2 string) string {
+	return fmt.Sprintf("    xor %s, %s", val1, val2)
+}
+
+func And(val1 string, val2 string) string {
+	return fmt.Sprintf("    xor %s, %s", val1, val2)
+}
+
 func Xor(val1 string, val2 string) string {
 	return fmt.Sprintf("    xor %s, %s", val1, val2)
 }

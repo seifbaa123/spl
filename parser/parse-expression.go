@@ -15,7 +15,7 @@ func (p *Parser) parseExpression() compiler.Node {
 		expression = p.parsePrint()
 
 	default:
-		expression = p.parseAdding()
+		expression = p.parseLogical()
 	}
 
 	for p.at().Type == lexer.DOT {
