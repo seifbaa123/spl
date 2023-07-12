@@ -45,3 +45,15 @@ func Pop(val string) string {
 func Call(val string) string {
 	return fmt.Sprintf("    call %s", val)
 }
+
+func Cmp(val1 string, val2 string) string {
+	return fmt.Sprintf("    cmp %s, %s", val1, val2)
+}
+
+func Jmp(val string) string {
+	return fmt.Sprintf("    jmp %s", val)
+}
+
+func Je(val string) string {
+	return fmt.Sprintf("    je %s", val)
+}

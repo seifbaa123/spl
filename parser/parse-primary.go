@@ -24,6 +24,14 @@ func (p *Parser) ParsePrimary() compiler.Node {
 	case lexer.IDENTIFIER:
 		expression = &compiler.Identifier{Value: p.eat()}
 
+	case lexer.NOT:
+		token := p.eat()
+		expression = p.parseExpression()
+		expression = &compiler.NotExpression{
+			Token:      token,
+			Expression: expression,
+		}
+
 	case lexer.TRUE:
 		expression = &compiler.True{Value: p.eat()}
 

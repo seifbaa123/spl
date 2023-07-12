@@ -1,6 +1,7 @@
 package compiler
 
 import (
+	i "spl/instructions"
 	"spl/lexer"
 )
 
@@ -15,13 +16,13 @@ type False struct {
 func (t *True) Evaluate(env *Environment) NodeResult {
 	return NodeResult{
 		Type:     BoolType,
-		Assembly: "    mov rax, 1",
+		Assembly: i.Mov("rax", "1"),
 	}
 }
 
 func (f *False) Evaluate(env *Environment) NodeResult {
 	return NodeResult{
 		Type:     BoolType,
-		Assembly: "    mov rax, 0",
+		Assembly: i.Xor("rax", "rax"),
 	}
 }

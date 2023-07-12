@@ -2,6 +2,7 @@ package compiler
 
 import (
 	"fmt"
+	i "spl/instructions"
 	"spl/lexer"
 )
 
@@ -12,6 +13,6 @@ type Int struct {
 func (n *Int) Evaluate(env *Environment) NodeResult {
 	return NodeResult{
 		Type:     IntType,
-		Assembly: fmt.Sprintf("    mov rax, %s", n.Value.Symbol),
+		Assembly: i.Mov("rax", fmt.Sprint(n.Value.Symbol)),
 	}
 }

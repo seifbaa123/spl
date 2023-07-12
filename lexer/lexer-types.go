@@ -21,6 +21,7 @@ const (
 	OR
 	AND
 	XOR
+	NOT
 
 	PLUS
 	MINUS

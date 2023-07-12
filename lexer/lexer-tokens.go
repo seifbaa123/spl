@@ -31,6 +31,7 @@ var keywordsTokens = []StaticToken{
 	{Type: OR, Symbol: "or"},
 	{Type: AND, Symbol: "and"},
 	{Type: XOR, Symbol: "xor"},
+	{Type: NOT, Symbol: "not"},
 
 	{Type: TRUE, Symbol: "true"},
 	{Type: FALSE, Symbol: "false"},
