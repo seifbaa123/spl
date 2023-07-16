@@ -52,8 +52,8 @@ loop:
 					lexer.Column = 0
 				}
 
-				lexer.Index++
-				lexer.Column++
+				lexer.Index += uint(len(token.Symbol))
+				lexer.Column += uint(len(token.Symbol))
 
 				continue loop
 			}

@@ -57,3 +57,7 @@ func Jmp(val string) string {
 func Je(val string) string {
 	return fmt.Sprintf("    je %s", val)
 }
+
+func Jne(val string) string {
+	return fmt.Sprintf("    jne %s", val)
+}

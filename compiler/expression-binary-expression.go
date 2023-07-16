@@ -28,28 +28,40 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 		i.Pop("rbx"),
 	}
 
+	end := prefixToken(".end", b.Op)
+	setTrue := prefixToken(".set_true", b.Op)
+	setFalse := prefixToken(".set_false", b.Op)
+
+	var returnType VariableType
+
 	switch b.Op.Type {
 	// arithmetic operations
 	case lexer.PLUS:
 		if left.Type == StrType {
+			returnType = StrType
 			code = append(code, concatStrings(left, right))
 		} else {
+			returnType = IntType
 			code = append(code, i.Add("rax", "rbx"))
 		}
 
 	case lexer.MINUS:
+		returnType = IntType
 		code = append(code, i.Sub("rax", "rbx"))
 
 	case lexer.MULTIPLY:
+		returnType = IntType
 		code = append(code, i.Mul("rbx"))
 
 	case lexer.DIVIDE:
+		returnType = IntType
 		code = append(code, strings.Join([]string{
 			i.Xor("rdx", "rdx"),
 			i.Div("rbx"),
 		}, "\n"))
 
 	case lexer.MODULO:
+		returnType = IntType
 		code = append(code, strings.Join([]string{
 			i.Xor("rdx", "rdx"),
 			i.Div("rbx"),
@@ -58,16 +70,53 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 
 	// logical operations
 	case lexer.OR:
+		returnType = BoolType
 		code = append(code, i.Or("rax", "rbx"))
 
 	case lexer.AND:
+		returnType = BoolType
 		code = append(code, i.And("rax", "rbx"))
 
 	case lexer.XOR:
+		returnType = BoolType
 		code = append(code, i.Xor("rax", "rbx"))
+
+	case lexer.EQUALS_TO:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Je(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
+
+	case lexer.NOT_EQUALS_TO:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Jne(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
 	}
 
-	return NodeResult{Type: left.Type, Assembly: strings.Join(code, "\n")}
+	return NodeResult{Type: returnType, Assembly: strings.Join(code, "\n")}
 }
 
 func checkBinaryExpressionTypes(left NodeResult, right NodeResult, op lexer.Token) {

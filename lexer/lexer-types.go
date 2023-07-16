@@ -34,6 +34,9 @@ const (
 
 	EQUALS
 
+	EQUALS_TO
+	NOT_EQUALS_TO
+
 	DOT
 	COLON
 	SEMI_COLON

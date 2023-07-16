@@ -10,6 +10,9 @@ var symbolsTokens = []StaticToken{
 	{Type: OPEN_PAREN, Symbol: "("},
 	{Type: CLOSE_PAREN, Symbol: ")"},
 
+	{Type: EQUALS_TO, Symbol: "=="},
+	{Type: NOT_EQUALS_TO, Symbol: "!="},
+
 	{Type: EQUALS, Symbol: "="},
 
 	{Type: DOT, Symbol: "."},
