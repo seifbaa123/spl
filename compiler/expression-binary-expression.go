@@ -83,37 +83,68 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 
 	case lexer.EQUALS_TO:
 		returnType = BoolType
-		code = append(code, strings.Join([]string{
-			i.Cmp("rax", "rbx"),
-			i.Je(setTrue),
-			i.Jmp(setFalse),
+		if left.Type == StrType {
+			code = append(code, strings.Join([]string{
+				i.Push("rax"),
+				i.Push("rbx"),
+				i.Call("_str_compare"),
+				i.Add("rsp", "16"),
+			}, "\n"))
+		} else {
+			code = append(code, strings.Join([]string{
+				i.Cmp("rax", "rbx"),
+				i.Je(setTrue),
+				i.Jmp(setFalse),
 
-			setTrue + ":",
-			i.Mov("rax", "1"),
-			i.Jmp(end),
+				setTrue + ":",
+				i.Mov("rax", "1"),
+				i.Jmp(end),
 
-			setFalse + ":",
-			i.Xor("rax", "rax"),
+				setFalse + ":",
+				i.Xor("rax", "rax"),
 
-			end + ":",
-		}, "\n"))
+				end + ":",
+			}, "\n"))
+		}
 
 	case lexer.NOT_EQUALS_TO:
 		returnType = BoolType
-		code = append(code, strings.Join([]string{
-			i.Cmp("rax", "rbx"),
-			i.Jne(setTrue),
-			i.Jmp(setFalse),
+		if left.Type == StrType {
+			code = append(code, strings.Join([]string{
+				i.Push("rax"),
+				i.Push("rbx"),
+				i.Call("_str_compare"),
+				i.Add("rsp", "16"),
 
-			setTrue + ":",
-			i.Mov("rax", "1"),
-			i.Jmp(end),
+				i.Cmp("rax", "0"),
+				i.Je(setTrue),
+				i.Jmp(setFalse),
 
-			setFalse + ":",
-			i.Xor("rax", "rax"),
+				setTrue + ":",
+				i.Mov("rax", "1"),
+				i.Jmp(end),
 
-			end + ":",
-		}, "\n"))
+				setFalse + ":",
+				i.Xor("rax", "rax"),
+
+				end + ":",
+			}, "\n"))
+		} else {
+			code = append(code, strings.Join([]string{
+				i.Cmp("rax", "rbx"),
+				i.Jne(setTrue),
+				i.Jmp(setFalse),
+
+				setTrue + ":",
+				i.Mov("rax", "1"),
+				i.Jmp(end),
+
+				setFalse + ":",
+				i.Xor("rax", "rax"),
+
+				end + ":",
+			}, "\n"))
+		}
 	}
 
 	return NodeResult{Type: returnType, Assembly: strings.Join(code, "\n")}
@@ -130,6 +161,12 @@ func checkBinaryExpressionTypes(left NodeResult, right NodeResult, op lexer.Toke
 
 	if op.Type == lexer.OR || op.Type == lexer.AND || op.Type == lexer.XOR {
 		if right.Type == BoolType && left.Type == BoolType {
+			return
+		}
+	}
+
+	if op.Type == lexer.EQUALS_TO || op.Type == lexer.NOT_EQUALS_TO {
+		if right.Type == StrType && left.Type == StrType {
 			return
 		}
 	}

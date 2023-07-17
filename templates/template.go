@@ -30,4 +30,4 @@ section .data
     falseLength equ $-false
 %STRINGS%
 
-`, "%FUNCTIONS%", print+memory, 1)
+`, "%FUNCTIONS%", print+memory+str, 1)
