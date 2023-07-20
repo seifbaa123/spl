@@ -22,7 +22,12 @@ func (p *Parser) parseLogical() compiler.Node {
 func (p *Parser) parseLogicalPrimary() compiler.Node {
 	left := p.parseAdding()
 
-	for p.at().Type == lexer.EQUALS_TO || p.at().Type == lexer.NOT_EQUALS_TO {
+	for p.at().Type == lexer.EQUALS_TO ||
+		p.at().Type == lexer.NOT_EQUALS_TO ||
+		p.at().Type == lexer.GREATER ||
+		p.at().Type == lexer.GREATER_OR_EQUALS ||
+		p.at().Type == lexer.LESS ||
+		p.at().Type == lexer.LESS_OR_EQUALS {
 		left = &compiler.BinaryExpression{
 			Op:    p.eat(),
 			Left:  left,

@@ -61,3 +61,19 @@ func Je(val string) string {
 func Jne(val string) string {
 	return fmt.Sprintf("    jne %s", val)
 }
+
+func Jg(val string) string {
+	return fmt.Sprintf("    jg %s", val)
+}
+
+func Jge(val string) string {
+	return fmt.Sprintf("    jge %s", val)
+}
+
+func Jl(val string) string {
+	return fmt.Sprintf("    jl %s", val)
+}
+
+func Jle(val string) string {
+	return fmt.Sprintf("    jle %s", val)
+}

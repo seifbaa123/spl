@@ -145,6 +145,74 @@ func (b *BinaryExpression) Evaluate(env *Environment) NodeResult {
 				end + ":",
 			}, "\n"))
 		}
+
+	case lexer.GREATER:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Jg(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
+
+	case lexer.GREATER_OR_EQUALS:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Jge(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
+
+	case lexer.LESS:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Jl(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
+
+	case lexer.LESS_OR_EQUALS:
+		returnType = BoolType
+		code = append(code, strings.Join([]string{
+			i.Cmp("rax", "rbx"),
+			i.Jle(setTrue),
+			i.Jmp(setFalse),
+
+			setTrue + ":",
+			i.Mov("rax", "1"),
+			i.Jmp(end),
+
+			setFalse + ":",
+			i.Xor("rax", "rax"),
+
+			end + ":",
+		}, "\n"))
 	}
 
 	return NodeResult{Type: returnType, Assembly: strings.Join(code, "\n")}
@@ -166,7 +234,15 @@ func checkBinaryExpressionTypes(left NodeResult, right NodeResult, op lexer.Toke
 	}
 
 	if op.Type == lexer.EQUALS_TO || op.Type == lexer.NOT_EQUALS_TO {
-		if right.Type == StrType && left.Type == StrType {
+		if (right.Type == StrType && left.Type == StrType) ||
+			(right.Type == BoolType && left.Type == BoolType) ||
+			(right.Type == CharType && left.Type == CharType) {
+			return
+		}
+	}
+
+	if op.Type == lexer.GREATER || op.Type == lexer.GREATER_OR_EQUALS || op.Type == lexer.LESS || op.Type == lexer.LESS_OR_EQUALS {
+		if right.Type == CharType && left.Type == CharType {
 			return
 		}
 	}

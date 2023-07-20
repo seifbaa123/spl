@@ -12,6 +12,10 @@ var symbolsTokens = []StaticToken{
 
 	{Type: EQUALS_TO, Symbol: "=="},
 	{Type: NOT_EQUALS_TO, Symbol: "!="},
+	{Type: GREATER_OR_EQUALS, Symbol: ">="},
+	{Type: GREATER, Symbol: ">"},
+	{Type: LESS_OR_EQUALS, Symbol: "<="},
+	{Type: LESS, Symbol: "<"},
 
 	{Type: EQUALS, Symbol: "="},
 

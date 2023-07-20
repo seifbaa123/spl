@@ -18,3 +18,5 @@ print(true or false)
 
 print(x is int)
 print(x is char)
+
+print(x >= 10)
