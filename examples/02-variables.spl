@@ -1,0 +1,5 @@
+let x: int = 10
+print(x)
+
+const y: int = 20
+print(y)

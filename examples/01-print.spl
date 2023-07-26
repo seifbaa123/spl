@@ -1,22 +1,4 @@
-let x: int = 12
-x = 10
-
-print(x + 10)                           # int
-print('a')                              # char
-print(65 as char)                       # char
-print(true)                             # bool
-print("Hello" + ", " + "World!\n")      # str
-
-print("Hello".length)
-
-print("test" == "test")
-
-print(x != 12)
-
-print(not false)
-print(true or false)
-
-print(x is int)
-print(x is char)
-
-print(x >= 10)
+print(x)                # int
+print('a')              # char
+print(true)             # bool
+print("Hello World!\n") # str

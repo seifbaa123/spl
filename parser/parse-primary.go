@@ -43,6 +43,10 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		expression = p.parseExpression()
 		p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.at())))
 
+	case lexer.END_OF_LINE:
+	case lexer.SEMI_COLON:
+		return nil
+
 	default:
 		logs.PrintError(p.at(), fmt.Sprintf("Syntax Error: expected expression but got token %s", logs.TokenToString(p.at())))
 		os.Exit(1)

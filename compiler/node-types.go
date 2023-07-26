@@ -14,6 +14,7 @@ func (v VariableType) IsValid() bool {
 	return (v.Type == "void" ||
 		v.Type == "char" ||
 		v.Type == "int" ||
+		v.Type == "str" ||
 		v.Type == "bool")
 }
 

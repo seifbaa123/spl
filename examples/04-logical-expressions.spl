@@ -1,0 +1,31 @@
+print("true or true  : ")
+print(true or true)
+print("true and true : ")
+print(true and true)
+print("true xor true : ")
+print(true xor true)
+
+print("\n ============================= \n\n")
+
+print("not true : ")
+print(not true)
+
+print("\n ============================= \n\n")
+
+print("10 == 20 : ")
+print(10 == 20)
+print("10 != 20 : ")
+print(10 != 20)
+print("10 > 20  : ")
+print(10 > 20)
+print("10 >= 20 : ")
+print(10 >= 20)
+print("10 < 20  : ")
+print(10 < 20)
+print("10 <= 20 : ")
+print(10 <= 20)
+
+print("\n ============================= \n\n")
+
+print("10 is int : ")
+print(10 is int)
