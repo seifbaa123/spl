@@ -23,7 +23,7 @@ func (p *Parser) parseVariable() *compiler.DeclareVariable {
 	return &compiler.DeclareVariable{
 		Token:      let,
 		Name:       name,
-		Type:       variableType,
+		Type:       *variableType,
 		IsConstant: false,
 		Expression: expression,
 	}

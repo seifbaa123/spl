@@ -32,7 +32,7 @@ func (p *Parser) parseConstant() *compiler.DeclareVariable {
 	return &compiler.DeclareVariable{
 		Token:      constant,
 		Name:       name,
-		Type:       variableType,
+		Type:       *variableType,
 		IsConstant: true,
 		Expression: expression,
 	}

@@ -9,7 +9,7 @@ import (
 
 type AsExpression struct {
 	Token      lexer.Token
-	Type       VariableType
+	Type       *VariableType
 	Expression Node
 }
 
@@ -19,5 +19,5 @@ func (a *AsExpression) Evaluate(env *Environment) NodeResult {
 		os.Exit(1)
 	}
 
-	return NodeResult{Type: a.Type, Assembly: a.Expression.Evaluate(env).Assembly}
+	return NodeResult{Type: *a.Type, Assembly: a.Expression.Evaluate(env).Assembly}
 }

@@ -10,6 +10,9 @@ var symbolsTokens = []StaticToken{
 	{Type: OPEN_PAREN, Symbol: "("},
 	{Type: CLOSE_PAREN, Symbol: ")"},
 
+	{Type: OPEN_BRACKET, Symbol: "["},
+	{Type: CLOSE_BRACKET, Symbol: "]"},
+
 	{Type: EQUALS_TO, Symbol: "=="},
 	{Type: NOT_EQUALS_TO, Symbol: "!="},
 	{Type: GREATER_OR_EQUALS, Symbol: ">="},
@@ -21,6 +24,7 @@ var symbolsTokens = []StaticToken{
 
 	{Type: DOT, Symbol: "."},
 	{Type: COLON, Symbol: ":"},
+	{Type: COMMA, Symbol: ","},
 	{Type: SEMI_COLON, Symbol: ";"},
 
 	{Type: NEW_LINE, Symbol: "\n"},

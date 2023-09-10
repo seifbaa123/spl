@@ -7,7 +7,7 @@ func isWhiteSpace(c byte) bool {
 }
 
 func isAlpha(c byte) bool {
-	return (c >= 'a' && c <= 'z') || (c >= 'Z' && c <= 'Z') || c == '_'
+	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_'
 }
 
 func isNumber(c byte) bool {
@@ -33,7 +33,7 @@ func (lexer *Lexer) lexIdentifier() Token {
 
 func (lexer *Lexer) lexNumber() Token {
 	var number []byte
-	for isNumber(lexer.Src[lexer.Index]) {
+	for lexer.Index < uint(len(lexer.Src)) && isNumber(lexer.Src[lexer.Index]) {
 		number = append(number, lexer.Src[lexer.Index])
 		lexer.Index++
 		lexer.Column++
@@ -86,14 +86,14 @@ func (lexer *Lexer) lexString() Token {
 
 func (lexer *Lexer) lexChar() Token {
 	lexer.Index++
-	if len(lexer.Src) == int(lexer.Index) || lexer.Src[lexer.Index] == '\'' {
+	if uint(len(lexer.Src)) == lexer.Index || lexer.Src[lexer.Index] == '\'' {
 		lexer.error("Syntax Error: expected char")
 	}
 
 	char := lexer.Src[lexer.Index]
 	lexer.Index++
 
-	if lexer.Src[lexer.Index] != '\'' {
+	if uint(len(lexer.Src)) == lexer.Index || lexer.Src[lexer.Index] != '\'' {
 		lexer.error("Syntax Error: expected closing '")
 	}
 	lexer.Index++

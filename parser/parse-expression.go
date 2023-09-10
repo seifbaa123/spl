@@ -14,6 +14,9 @@ func (p *Parser) parseExpression() compiler.Node {
 	case lexer.PRINT:
 		expression = p.parsePrint()
 
+	case lexer.OPEN_BRACKET:
+		expression = p.parseList()
+
 	default:
 		for p.at().Type == lexer.NEW_LINE && p.IsInParenthesis {
 			p.eat()

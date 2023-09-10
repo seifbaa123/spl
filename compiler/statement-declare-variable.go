@@ -29,13 +29,14 @@ func (d *DeclareVariable) Evaluate(env *Environment) NodeResult {
 	if d.Expression != nil {
 		expression := d.Expression.Evaluate(env)
 
-		if expression.Type != d.Type {
+		if !expression.Type.Compare(d.Type) {
 			logs.PrintError(
 				d.Token,
 				fmt.Sprintf("Type Error: can not assign expression of type %s to variable of type %s",
 					expression.Type.ToString(),
 					d.Type.ToString()),
 			)
+			os.Exit(1)
 		}
 
 		assembly = strings.Join([]string{

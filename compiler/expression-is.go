@@ -10,7 +10,7 @@ import (
 
 type IsExpression struct {
 	Token      lexer.Token
-	Type       VariableType
+	Type       *VariableType
 	Expression Node
 }
 
@@ -20,7 +20,7 @@ func (i *IsExpression) Evaluate(env *Environment) NodeResult {
 		os.Exit(1)
 	}
 
-	if i.Expression.Evaluate(env).Type == i.Type {
+	if i.Expression.Evaluate(env).Type == *i.Type {
 		return NodeResult{Type: BoolType, Assembly: instructions.Mov("rax", "1")}
 	}
 
