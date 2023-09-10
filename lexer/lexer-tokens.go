@@ -23,7 +23,7 @@ var symbolsTokens = []StaticToken{
 	{Type: COLON, Symbol: ":"},
 	{Type: SEMI_COLON, Symbol: ";"},
 
-	{Type: END_OF_LINE, Symbol: "\n"},
+	{Type: NEW_LINE, Symbol: "\n"},
 }
 
 var keywordsTokens = []StaticToken{

@@ -1,4 +1,4 @@
-print(x)                # int
+print(1)                # int
 print('a')              # char
 print(true)             # bool
 print("Hello World!\n") # str

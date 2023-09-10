@@ -45,7 +45,7 @@ const (
 	COLON
 	SEMI_COLON
 
-	END_OF_LINE
+	NEW_LINE
 	EOF
 )
 

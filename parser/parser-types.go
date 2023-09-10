@@ -7,4 +7,6 @@ import (
 type Parser struct {
 	Tokens []lexer.Token
 	Index  uint
+
+	IsInParenthesis bool
 }

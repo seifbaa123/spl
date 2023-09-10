@@ -31,6 +31,11 @@ func (p *Parser) eat() lexer.Token {
 }
 
 func (p *Parser) expect(tokenType lexer.TokenType, message string) lexer.Token {
+	if p.IsInParenthesis && p.at().Type == lexer.NEW_LINE {
+		p.eat()
+		return p.expect(tokenType, message)
+	}
+
 	if p.at().Type != tokenType {
 		logs.PrintError(p.at(), message)
 		os.Exit(1)
@@ -49,5 +54,5 @@ func (p *Parser) expectNewLine() {
 }
 
 func (p *Parser) isNewLine() bool {
-	return p.at().Type == lexer.SEMI_COLON || p.at().Type == lexer.END_OF_LINE || p.at().Type == lexer.EOF
+	return p.at().Type == lexer.SEMI_COLON || p.at().Type == lexer.NEW_LINE || p.at().Type == lexer.EOF
 }

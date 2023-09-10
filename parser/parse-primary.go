@@ -39,11 +39,16 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		expression = &compiler.False{Value: p.eat()}
 
 	case lexer.OPEN_PAREN:
+		oldIsInParenthesis := p.IsInParenthesis
+		p.IsInParenthesis = true
+
 		p.eat()
 		expression = p.parseExpression()
 		p.expect(lexer.CLOSE_PAREN, fmt.Sprintf("Syntax Error: expected ) but got %s", logs.TokenToString(p.at())))
 
-	case lexer.END_OF_LINE:
+		p.IsInParenthesis = oldIsInParenthesis
+
+	case lexer.NEW_LINE:
 	case lexer.SEMI_COLON:
 		return nil
 

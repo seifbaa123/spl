@@ -7,14 +7,15 @@ import (
 
 func NewParser(tokens []lexer.Token) *Parser {
 	return &Parser{
-		Tokens: tokens,
+		Tokens:          tokens,
+		IsInParenthesis: false,
 	}
 }
 
 func (p *Parser) ProduceAst() *compiler.Program {
 	var program compiler.Program
 	for p.at().Type != lexer.EOF {
-		if p.at().Type == lexer.END_OF_LINE {
+		if p.at().Type == lexer.NEW_LINE {
 			p.eat()
 		}
 

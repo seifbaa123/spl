@@ -7,7 +7,7 @@ func TokenToString(token lexer.Token) string {
 		return "\"" + token.Symbol + "\""
 	}
 
-	if token.Type == lexer.END_OF_LINE {
+	if token.Type == lexer.NEW_LINE {
 		return "\\n"
 	}
 

@@ -15,6 +15,10 @@ func (p *Parser) parseExpression() compiler.Node {
 		expression = p.parsePrint()
 
 	default:
+		for p.at().Type == lexer.NEW_LINE && p.IsInParenthesis {
+			p.eat()
+		}
+
 		expression = p.parseLogical()
 	}
 
