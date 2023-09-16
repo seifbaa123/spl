@@ -22,4 +22,13 @@ var propertiesList = map[string]PropertiesMap{
 			}, "\n"),
 		},
 	},
+	"List": {
+		"length": {
+			Type: IntType,
+			Assembly: strings.Join([]string{
+				i.Mov("rax", "[rax]"),
+				i.Mov("rax", "[rax]"),
+			}, "\n"),
+		},
+	},
 }

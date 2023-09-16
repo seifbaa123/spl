@@ -67,7 +67,7 @@ func getListTypeAndAssembly(l *ListExpression, listType *VariableType, env *Envi
 		i.Add("rsp", "8"),
 
 		// set length
-		i.Mov("rbx", "0"),
+		i.Mov("rbx", fmt.Sprintf("%d", len(l.Items))),
 		i.Mov("[rax]", "rbx"),
 
 		// set items
