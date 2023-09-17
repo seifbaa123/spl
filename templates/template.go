@@ -28,6 +28,8 @@ section .data
     trueLength equ $-true
     false: db "false", 0xa
     falseLength equ $-false
+    indexOutOfRange: db "Index out of range", 0xa
+    indexOutOfRangeLength equ $-indexOutOfRange
 %STRINGS%
 
 `, "%FUNCTIONS%", print+memory+str, 1)

@@ -1,6 +1,6 @@
 package templates
 
-var str = strCompare
+var str = strCompare + checkIndex
 
 var strCompare = `
 _str_compare:
@@ -54,4 +54,35 @@ _str_compare:
     add rsp, 8
 
     ret
+`
+
+var checkIndex = `
+_check_index:
+    push rax    
+    push rdi
+    
+    mov rax, [rsp+4*8]
+    mov rdi, [rsp+3*8]
+
+    cmp rdi, 0
+    jl .print_error
+
+    cmp rdi, rax
+    jge .print_error
+
+    pop rdi
+    pop rax
+
+    ret
+
+.print_error:
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, indexOutOfRange
+    mov rdx, indexOutOfRangeLength
+    syscall
+
+    mov rax, 60
+    mov rdi, 1
+    syscall
 `

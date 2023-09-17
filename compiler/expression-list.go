@@ -55,7 +55,7 @@ func getListTypeAndAssembly(l *ListExpression, listType *VariableType, env *Envi
 			i.Push("rax"),
 			item.Assembly,
 			i.Pop("rbx"),
-			i.Mov(fmt.Sprintf("[rbx+8+%d]", index), "rax"),
+			i.Mov(fmt.Sprintf("[rbx+8+%d*8]", index), "rax"),
 			i.Mov("rax", "rbx"),
 		}, "\n"))
 	}

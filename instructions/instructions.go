@@ -6,6 +6,10 @@ func Mov(val1 string, val2 string) string {
 	return fmt.Sprintf("    mov %s, %s", val1, val2)
 }
 
+func Movzx(val1 string, val2 string) string {
+	return fmt.Sprintf("    movzx %s, %s", val1, val2)
+}
+
 func Add(val1 string, val2 string) string {
 	return fmt.Sprintf("    add %s, %s", val1, val2)
 }

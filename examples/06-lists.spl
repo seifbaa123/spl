@@ -1,2 +1,7 @@
-let l: List<int> = [12]
+let l: List<int> = [1200, 24]
+
+print("l[0]     = ")
+print(l[1])
+
+print("l.length = ")
 print(l.length)

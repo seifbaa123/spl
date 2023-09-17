@@ -79,5 +79,9 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		}
 	}
 
+	if p.at().Type == lexer.OPEN_BRACKET {
+		expression = p.parseAt(expression)
+	}
+
 	return expression
 }

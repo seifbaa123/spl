@@ -2,6 +2,8 @@ const s: str = "Hello"
 
 print("s         : " + s + "\n")
 
+print(s[0])
+
 print("s.length  : ")
 print(s.length)
 
