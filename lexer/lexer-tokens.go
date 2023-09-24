@@ -26,6 +26,7 @@ var symbolsTokens = []StaticToken{
 	{Type: COLON, Symbol: ":"},
 	{Type: COMMA, Symbol: ","},
 	{Type: SEMI_COLON, Symbol: ";"},
+	{Type: QUESTION_MARK, Symbol: "?"},
 
 	{Type: NEW_LINE, Symbol: "\n"},
 }

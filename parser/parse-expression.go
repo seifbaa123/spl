@@ -39,5 +39,9 @@ func (p *Parser) parseExpression() compiler.Node {
 		}
 	}
 
+	if p.at().Type == lexer.QUESTION_MARK {
+		expression = p.parseTernaryOperator(expression)
+	}
+
 	return expression
 }
