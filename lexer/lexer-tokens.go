@@ -1,6 +1,9 @@
 package lexer
 
 var symbolsTokens = []StaticToken{
+	{Type: PLUS_PLUS, Symbol: "++"},
+	{Type: MINUS_MINUS, Symbol: "--"},
+
 	{Type: PLUS, Symbol: "+"},
 	{Type: MINUS, Symbol: "-"},
 	{Type: MULTIPLY, Symbol: "*"},

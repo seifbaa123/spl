@@ -22,7 +22,15 @@ func (p *Parser) ParsePrimary() compiler.Node {
 		expression = &compiler.Char{Value: p.eat()}
 
 	case lexer.IDENTIFIER:
-		expression = &compiler.Identifier{Value: p.eat()}
+		identifier := p.eat()
+		expression = &compiler.Identifier{Value: identifier}
+		if p.at().Type == lexer.PLUS_PLUS || p.at().Type == lexer.MINUS_MINUS {
+			expression = &compiler.Increment{
+				Operator:   p.eat(),
+				Identifier: identifier,
+				IsAfter:    true,
+			}
+		}
 
 	case lexer.NOT:
 		token := p.eat()
@@ -48,8 +56,7 @@ func (p *Parser) ParsePrimary() compiler.Node {
 
 		p.IsInParenthesis = oldIsInParenthesis
 
-	case lexer.NEW_LINE:
-	case lexer.SEMI_COLON:
+	case lexer.NEW_LINE, lexer.SEMI_COLON:
 		return nil
 
 	default:

@@ -17,6 +17,18 @@ func (p *Parser) parseExpression() compiler.Node {
 	case lexer.OPEN_BRACKET:
 		expression = p.parseList()
 
+	case lexer.PLUS_PLUS, lexer.MINUS_MINUS:
+		operator := p.eat()
+		identifier := p.expect(
+			lexer.IDENTIFIER,
+			fmt.Sprintf("SyntaxError: Expected identifier after %s but got %s", operator.Symbol, logs.TokenToString(p.at())),
+		)
+
+		expression = &compiler.Increment{
+			Operator:   operator,
+			Identifier: identifier,
+		}
+
 	default:
 		for p.at().Type == lexer.NEW_LINE && p.IsInParenthesis {
 			p.eat()
